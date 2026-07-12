@@ -38,6 +38,6 @@ jobs:
         #   run: terraform -chdir=./cloud plan -out=tfplan
         uses: mahadikbs/reusable-workflows/.github/workflows/terraform-plan.yaml@main
         with:
-           aws-region: us-east-1
+          aws_region: "us-east-1"
 
         
