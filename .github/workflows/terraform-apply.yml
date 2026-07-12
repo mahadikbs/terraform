@@ -1,0 +1,29 @@
+name: Terraform apply
+
+on:
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    id-token: write
+
+jobs:
+    Terraform_apply:
+        name: Terraform apply
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup terraform
+              uses: hashicorp/setup-terraform@v2
+              with:
+                terraform_version: 1.15.8
+            - name: configure aws credentials
+              uses: aws-actions/configure-aws-credentials@v2    
+              with:
+                role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}  
+                aws-region: ${{ secrets.AWS_REGION }}
+            - name: terraform init
+              run: terraform -chdir=./cloud init
+            - name: terraform apply 
+              run: terraform -chdir=./cloud apply -auto-approve tfplan 
