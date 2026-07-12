@@ -13,31 +13,29 @@ permissions:
     id-token: write
 jobs:
     terraform:
-        # name: Terraform
-        # runs-on: ubuntu-latest   
+        name: Terraform
+        runs-on: ubuntu-latest   
         
-        # steps:
-        # - name: checkout
-        #   uses: actions/checkout@v3
-        # - name: setup terraform
-        #   uses: hashicorp/setup-terraform@v2
-        #   with:
-        #     terraform_version: 1.15.8
-        # - name: configure aws credentials
-        #   uses: aws-actions/configure-aws-credentials@v2
-        #   with:
-        #     role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}  
-        #     aws-region: ${{ secrets.AWS_REGION }}  
-        # - name: terraform init
-        #   run: terraform -chdir=./cloud init
+        steps:
+        - name: checkout
+          uses: actions/checkout@v3
+        - name: setup terraform
+          uses: hashicorp/setup-terraform@v2
+          with:
+            terraform_version: 1.15.8
+        - name: configure aws credentials
+          uses: aws-actions/configure-aws-credentials@v2
+          with:
+            role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}  
+            aws-region: ${{ secrets.AWS_REGION }}  
+        - name: terraform init
+          run: terraform -chdir=./cloud init
 
-        # - name: terraform validate
-        #   run: terraform -chdir=./cloud validate            
+        - name: terraform validate
+          run: terraform -chdir=./cloud validate            
 
-        # - name: terraform plan
-        #   run: terraform -chdir=./cloud plan -out=tfplan
-        uses: mahadikbs/reusable-workflows/.github/workflows/terraform-plan.yaml@main
-        with:
-          aws_region: "us-east-1"
+        - name: terraform plan
+          run: terraform -chdir=./cloud plan -out=tfplan
+
 
         
