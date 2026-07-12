@@ -37,5 +37,7 @@ jobs:
         # - name: terraform plan
         #   run: terraform -chdir=./cloud plan -out=tfplan
         uses: mahadikbs/reusable-workflows/.github/workflows/terraform-plan.yaml@main
+        with:
+           aws-region: us-east-1
 
         
