@@ -28,14 +28,10 @@ jobs:
             role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}  
             aws-region: ${{ secrets.AWS_REGION }}  
         - name: terraform init
-          run: terraform init    
+          run: terraform -chdir=./cloud init
 
         - name: terraform validate
-          run: terraform validate            
+          run: terraform -chdir=./cloud validate            
 
         - name: terraform plan
-          run: terraform plan
-   
-
-
-
+          run: terraform -chdir=./cloud plan -out=tfplan
